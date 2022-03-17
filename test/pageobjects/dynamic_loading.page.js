@@ -19,12 +19,26 @@ class DynamicLoadingPage extends Page {
       await $(element).click();
       //await $(element).waitForDisplayed({ timeout: 5000, reverse : true });
   }
+  async login (path,inputus,inputpass,but,username, password,text,elementexpected) {
+    it(text, async () => {
+      this.open(path)
+      await expect(browser).toHaveUrl(`https://nfar.rallybound.org/${path}`)
+    await $(inputus).setValue(username);
+    await browser.pause(2000)
+    await $(inputpass).setValue(password);
+    await browser.pause(2000)
+    await $(but).click();
+    await browser.pause(2000)
+    await expect($(elementexpected)).toBeExisting();});
+    
+  
+  }
 
-  async exist(url,element,text) {
-        it(text, async () => {
-        await this.open(url);
-        await browser.pause(5000)
-        await expect($(element)).toBeExisting();
+  async exist(testing) {
+        it(testing.text, async () => {
+        await this.open(testing.path);
+        await browser.pause(2000)
+        await expect($(testing.element)).toBeExisting();
         await browser.saveScreenshot('./screenshot/screenshot.png');
         
     });
